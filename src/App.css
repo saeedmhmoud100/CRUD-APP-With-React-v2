@@ -27,13 +27,14 @@
   font-size: 23px;
   color: #222;
   border-bottom: 1px solid black;
+  align-items: center;
 }
 
 .container .users .user:not(:first-of-type) > div {
   border-right: 1px solid black;
 }
 .container .users .user > div {
-  padding: 13px 10px;
+  padding: 5px 10px;
 }
 .container .users .user > .id {
   width: 10%;
@@ -41,15 +42,19 @@
 .container .users .user > div:not(:first-of-type) {
   width: 30%;
 }
-.container .users .user:not(:first-of-type) > button {
+.container .users .user:not(:first-of-type) > div button {
   color: white;
-  background-color: #008;
+  background-color: #080;
   outline: none;
   border: none;
-  width: 16%;
+  /* width: 16%; */
   font-size: 17px;
   cursor: pointer;
   border-top: 1px solid white;
+  padding: 5px 0;
+}
+.container .users .user:not(:first-of-type) > div button:last-of-type {
+  background-color: #800;
 }
 
 .add-form {
