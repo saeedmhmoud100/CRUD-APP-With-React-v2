@@ -16,6 +16,14 @@ class App extends Component {
       users: users
     });
   }
+
+  Deleteuser(id) {
+    let users = this.state.users.filter(user => user.id !== id);
+    users.forEach((user, i) => (user.id = ++i));
+    this.setState({
+      users: users
+    });
+  }
   render() {
     return (
       <div className="app">
@@ -34,7 +42,11 @@ class App extends Component {
             </div>
             {this.state.users.length > 0
               ? this.state.users.map(user =>
-                  <ShowUsers user={user} key={user.id} />
+                  <ShowUsers
+                    user={user}
+                    key={user.id}
+                    DeleteUser={this.Deleteuser.bind(this)}
+                  />
                 )
               : <h2
                   style={{
