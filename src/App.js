@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import AddUser from "./Components/Adduser";
 import ShowUsers from "./Components/Showusers";
+import UpdateUser from "./Components/UpdateUser";
 
 class App extends Component {
   state = {
@@ -28,6 +29,7 @@ class App extends Component {
     return (
       <div className="app">
         <div className="container">
+          <UpdateUser />
           <h2>Users</h2>
           <div className="users">
             <div className="user head">
