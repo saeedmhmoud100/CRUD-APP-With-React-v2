@@ -1,57 +1,62 @@
 import React from "react";
 
-const UpdateUser = props => {
-  let state = {
-    name: "",
-    age: 0,
-    jop: ""
+class UpdateUser extends React.Component {
+  state = {
+    new_user: {},
+    user_id: this.props.state.update_user
   };
 
-  const handleChange = e => {
-    state[e.target.id] = e.target.value;
-  };
-
-  const handleSubmmit = e => {
+  handleSubmit = e => {
     e.preventDefault();
-    if (state.name && state.jop) {
-      props.AddUser(state);
-      state = ["", 0, ""];
-      e.target.reset();
-    }
+    let data = {};
+    Array.from(
+      document.querySelectorAll("#update input:not([type='submit'])")
+    ).map(input => (data[input.id] = input.value));
+    this.setState({ new_user: data,user_id:this.props.state.update_user });
+    this.props.Update(this.state);
   };
-  console.log("update");
-  return (
-    <div className="update">
-      <div className="update-container">
-        <h2>Update User</h2>
-        <form onSubmit={e => handleSubmmit(e)}>
-          <div>
-            <input
-              type="text"
-              placeholder="Enter Your Name"
-              id="name"
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              placeholder="Enter Your Jop"
-              id="jop"
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <input
-              type={"number"}
-              placeholder="Enter Your Age"
-              id="age"
-              onChange={handleChange}
-            />
-            <input type="submit" value="Update User" />
-          </div>
-        </form>
+  render() {
+    return (
+      <div
+        className="update"
+        id="update"
+        style={
+          this.props.state.isUpdate
+            ? { visibility: "visible", opacity: 1 }
+            : null
+        }
+      >
+        <div className="update-container">
+          <h2>Update User</h2>
+          <form onSubmit={this.handleSubmit} name="update-form">
+            <div>
+              <input
+                type="text"
+                placeholder="Enter Your Name"
+                id="name"
+                required
+              />
+              <input
+                type="text"
+                placeholder="Enter Your Jop"
+                id="jop"
+                required
+              />
+            </div>
+            <div>
+              <input
+                type={"number"}
+                placeholder="Enter Your Age"
+                id="age"
+                required
+              />
+              <input type="submit" value="Update User" />
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default UpdateUser;

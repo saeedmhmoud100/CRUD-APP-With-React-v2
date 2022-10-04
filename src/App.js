@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
 import AddUser from "./Components/Adduser";
-import ShowUsers from "./Components/Showusers";
 import UpdateUser from "./Components/UpdateUser";
 
 class App extends Component {
   state = {
-    users: []
+    users: [],
+    isUpdate: false,
+    update_user: null
   };
 
   AddUser(user) {
@@ -18,18 +19,39 @@ class App extends Component {
     });
   }
 
-  Deleteuser(id) {
+  DeleteUser(id) {
     let users = this.state.users.filter(user => user.id !== id);
     users.forEach((user, i) => (user.id = ++i));
     this.setState({
       users: users
     });
   }
+  toggleUpdate = _ => {
+    this.setState({ isUpdate: !this.state.isUpdate });
+  };
+
+  Update = data => {
+    // console.log(data.user_id);
+    const old_user = this.state.users.filter(user => user.id === data.user_id)
+      .id;
+    const new_user = [...data.new_user,old_user;
+    new_user.id = ;
+    let users = [];
+    this.state.users.flatMap(user => {
+      if (user.id === old_user) {
+        users.push(new_user);
+      } else {
+        users.push(user);
+        this.toggleUpdate();
+      }
+    });
+    console.log(old_user, new_user);
+  };
   render() {
     return (
       <div className="app">
         <div className="container">
-          <UpdateUser />
+          <UpdateUser state={this.state} Update={this.Update} />
           <h2>Users</h2>
           <div className="users">
             <div className="user head">
@@ -44,11 +66,37 @@ class App extends Component {
             </div>
             {this.state.users.length > 0
               ? this.state.users.map(user =>
-                  <ShowUsers
-                    user={user}
-                    key={user.id}
-                    DeleteUser={this.Deleteuser.bind(this)}
-                  />
+                  <div className="user" key={user.id}>
+                    <div className="id">
+                      {user.id}
+                    </div>
+                    <div className="name">
+                      {user.name}
+                    </div>
+                    <div className="age">
+                      {user.age}
+                    </div>
+                    <div className="jop">
+                      {user.jop}
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <button
+                        onClick={_ => {
+                          this.setState({ update_user: user.id });
+                          this.toggleUpdate();
+                        }}
+                      >
+                        Update
+                      </button>
+                      <button
+                        onClick={_ => {
+                          this.DeleteUser(user.id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
                 )
               : <h2
                   style={{
