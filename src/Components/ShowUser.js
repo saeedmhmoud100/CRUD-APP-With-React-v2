@@ -17,8 +17,8 @@ const ShowUser = props => {
         {user.jop}
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <button>Update</button>
-        <button onClick={props.DeleteUser}>Delete</button>
+        <button onClick={_ => props.ToggleUpdate()}>Update</button>
+        <button onClick={_ => props.DeleteUser()}>Delete</button>
       </div>
     </div>
   );

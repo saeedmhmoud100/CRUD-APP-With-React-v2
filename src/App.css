@@ -161,3 +161,14 @@
 .update .update-container form > div input:not([type="submit"]) {
   padding-left: 10px;
 }
+
+.user input {
+  height: 31px;
+  outline: none;
+  border: 1px solid black;
+  font-size: 15px;
+  background: #eee;
+  margin: 0 10px;
+  padding-left: 10px;
+  width: 32%;
+}
