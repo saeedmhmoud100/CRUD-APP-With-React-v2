@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "./App.css";
 import AddUser from "./Components/Adduser";
-import UpdateUser from "./Components/UpdateUser";
+import ShowUser from "./Components/ShowUser";
 
 class App extends Component {
   state = {
+    // users: [{ name: "", job: "", age: 0, id: 1 }],
     users: [],
-    isUpdate: false,
-    update_user: null
+    isUpdate: false
   };
 
   AddUser(user) {
@@ -26,32 +26,11 @@ class App extends Component {
       users: users
     });
   }
-  toggleUpdate = _ => {
-    this.setState({ isUpdate: !this.state.isUpdate });
-  };
 
-  Update = data => {
-    // console.log(data.user_id);
-    const old_user = this.state.users.filter(user => user.id === data.user_id)
-      .id;
-    const new_user = [...data.new_user,old_user;
-    new_user.id = ;
-    let users = [];
-    this.state.users.flatMap(user => {
-      if (user.id === old_user) {
-        users.push(new_user);
-      } else {
-        users.push(user);
-        this.toggleUpdate();
-      }
-    });
-    console.log(old_user, new_user);
-  };
   render() {
     return (
       <div className="app">
         <div className="container">
-          <UpdateUser state={this.state} Update={this.Update} />
           <h2>Users</h2>
           <div className="users">
             <div className="user head">
@@ -66,37 +45,13 @@ class App extends Component {
             </div>
             {this.state.users.length > 0
               ? this.state.users.map(user =>
-                  <div className="user" key={user.id}>
-                    <div className="id">
-                      {user.id}
-                    </div>
-                    <div className="name">
-                      {user.name}
-                    </div>
-                    <div className="age">
-                      {user.age}
-                    </div>
-                    <div className="jop">
-                      {user.jop}
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <button
-                        onClick={_ => {
-                          this.setState({ update_user: user.id });
-                          this.toggleUpdate();
-                        }}
-                      >
-                        Update
-                      </button>
-                      <button
-                        onClick={_ => {
-                          this.DeleteUser(user.id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
+                  <ShowUser
+                    user={user}
+                    DeleteUser={_ => {
+                      this.DeleteUser(user.id);
+                    }}
+                    key={user.id}
+                  />
                 )
               : <h2
                   style={{
